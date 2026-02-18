@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action=" ">
+        <label =" ">
+        </label>
+        <input type ="text" id="fname">
+    </form></body>
+    <script>
+        let userInterput = document.querySelector('#fname')
+        document.addEventListener ('input',()=>{
+
+            localStorage.setItem('fname',userInterput.value)
+        })
+      
+        userInterput.value = localStorage.getItem('fname')
+    </script>
+</html>

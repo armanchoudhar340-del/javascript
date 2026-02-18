@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div
+      style="
+        width: 200px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-family: Arial;
+      "
+    >
+      <h3>Weather Widget</h3>
+      <p id="weather">Loading...</p>
+    </div>
+
+    <script>
+      async function weatherWidget() {
+        try {
+          let response = await fetch(
+            "https://api.open-meteo.com/v1/forecast?latitude=28.61&longitude=77.20&current_weather=true"
+          );
+
+          let data = await response.json();
+
+          document.getElementById("weather").innerText =
+            data.current_weather.temperature + "°C";
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      weatherWidget();
+    </script>
+  </body>
+</html>

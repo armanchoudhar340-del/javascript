@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XN Zero - JavaScript Fundamentals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 5px;
+        }
+        
+        .demo {
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 5px;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+        }
+        
+        #output {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        input {
+            padding: 10px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            margin: 5px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 XN Zero - JavaScript Fundamentals</h1>
+        
+        <div class="section">
+            <h2>1. Variables Demo</h2>
+            <div class="demo">
+                <p id="varDemo"></p>
+                <button onclick="variableDemo()">Run Variables</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>2. Array Demo</h2>
+            <div class="demo">
+                <button onclick="arrayDemo()">Run Arrays</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>3. Object Demo</h2>
+            <div class="demo">
+                <button onclick="objectDemo()">Run Objects</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>4. Functions Demo</h2>
+            <div class="demo">
+                <button onclick="functionDemo()">Run Functions</button>
+                <button onclick="greetUser('Guest')">Greet</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>5. Calculator</h2>
+            <div class="demo">
+                <input type="number" id="num1" placeholder="Number 1">
+                <input type="number" id="num2" placeholder="Number 2">
+                <br>
+                <button onclick="calculate('add')">Add</button>
+                <button onclick="calculate('subtract')">Subtract</button>
+                <button onclick="calculate('multiply')">Multiply</button>
+                <button onclick="calculate('divide')">Divide</button>
+                <p id="calcResult"></p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>6. Counter</h2>
+            <div class="demo">
+                <h3 id="counter">0</h3>
+                <button onclick="increment()">+1</button>
+                <button onclick="decrement()">-1</button>
+                <button onclick="reset()">Reset</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>7. DOM Manipulation</h2>
+            <div class="demo">
+                <p id="domTarget">Original text</p>
+                <button onclick="changeText()">Change Text</button>
+                <button onclick="changeColor()">Change Color</button>
+                <button onclick="resetDOM()">Reset</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Console Output</h2>
+            <div id="output">Check browser console for detailed output...</div>
+        </div>
+    </div>
+
+    <script>
+        // Capture console.log output
+        const originalLog = console.log;
+        const outputDiv = document.getElementById('output');
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const message = args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+            ).join(' ');
+            outputDiv.innerHTML += message + '\n';
+            outputDiv.scrollTop = outputDiv.scrollHeight;
+        };
+
+        // 1. Variables Demo
+        function variableDemo() {
+            var oldWay = "I am var";
+            let modernVar = "I am let";
+            const constantVar = "I am const";
+            
+            console.log("=== VARIABLES DEMO ===");
+            console.log("var:", oldWay);
+            console.log("let:", modernVar);
+            console.log("const:", constantVar);
+            
+            modernVar = "Updated value";
+            console.log("Updated let:", modernVar);
+        }
+
+        // 2. Array Demo
+        function arrayDemo() {
+            let fruits = ["Apple", "Banana", "Orange"];
+            console.log("=== ARRAYS DEMO ===");
+            console.log("Original array:", fruits);
+            console.log("Length:", fruits.length);
+            console.log("First item:", fruits[0]);
+            
+            fruits.push("Mango");
+            console.log("After push:", fruits);
+            
+            fruits.pop();
+            console.log("After pop:", fruits);
+        }
+
+        // 3. Object Demo
+        function objectDemo() {
+            let person = {
+                name: "John",
+                age: 30,
+                city: "New York"
+            };
+            
+            console.log("=== OBJECT DEMO ===");
+            console.log("Person:", person);
+            console.log("Name:", person.name);
+            console.log("Age:", person["age"]);
+            
+            person.job = "Developer";
+            console.log("Updated person:", person);
+        }
+
+        // 4. Functions Demo
+        function functionDemo() {
+            console.log("=== FUNCTIONS DEMO ===");
+            
+            function greet(name) {
+                return `Hello, ${name}!`;
+            }
+            console.log(greet("World"));
+            
+            const multiply = (a, b) => a * b;
+            console.log("5 * 3 =", multiply(5, 3));
+            
+            const add = (a, b) => a + b;
+            console.log("10 + 20 =", add(10, 20));
+        }
+
+        function greetUser(name) {
+            console.log(`Welcome, ${name}!`);
+        }
+
+        // 5. Calculator
+        let calcCount = 0;
+        function calculate(operation) {
+            const num1 = parseFloat(document.getElementById('num1').value) || 0;
+            const num2 = parseFloat(document.getElementById('num2').value) || 0;
+            let result;
+            
+            switch(operation) {
+                case 'add': result = num1 + num2; break;
+                case 'subtract': result = num1 - num2; break;
+                case 'multiply': result = num1 * num2; break;
+                case 'divide': result = num2 !== 0 ? num1 / num2 : 'Cannot divide by zero'; break;
